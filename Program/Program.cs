@@ -1,8 +1,8 @@
 ﻿
-int[] InputMas(string matrix, char separator) //Считывание массива из строки
+string[] InputArray(string matrix, char separator) //Считывание массива из строки
 {
     string value = "";
-    int[] mas = new int[matrix.Length];
+    string[] mas = new string[matrix.Length];
     int j = 0;
     for (int i = 0; i < matrix.Length; i++)
     {
@@ -13,7 +13,7 @@ int[] InputMas(string matrix, char separator) //Считывание масси�
         }
         if (matrix[i] == separator || i == matrix.Length - 1)
         {
-            mas[j] = Convert.ToInt32(value);
+            mas[j] = value;
             j++;
             value = "";
         }
@@ -21,12 +21,48 @@ int[] InputMas(string matrix, char separator) //Считывание масси�
 
     return ResizeArray(mas, j);
 }
-int[] ResizeArray(int[] masInput, int count)//изменение размера массива
+T[] ResizeArray<T>(T[] masInput, int count)//изменение размера массива
 {
-    int[] masOutput = new int[count];
+    T[] masOutput = new T[count];
     for (int i = 0; i < count; i++)
     {
         masOutput[i] = masInput[i];
     }
     return masOutput;
 }
+void PrintArray1D<T>(T[] matrix) //Вывод двумерного массива (матрицы) в консоль
+{
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        Console.Write($"{matrix[i]} ");
+    }
+}
+
+string[] SelectionStringsArrayByLength(string[] inputArray, int stringlength)
+{
+    string[] outputArray = new string[inputArray.Length];
+    int count = 0;
+    for (int i = 0; i < inputArray.Length; i++)
+    {
+        if (inputArray[i].Length <= stringlength)
+        {
+            outputArray[count] = inputArray[i];
+            count++;
+        }
+    }
+    return ResizeArray(outputArray, count);
+}
+
+
+
+string[] arr;
+string? arrString;
+Console.WriteLine("Введите массив строк через запятую:");
+arrString = Console.ReadLine();
+
+if (arrString != null)
+{
+    arr = InputArray(arrString, ',');
+    PrintArray1D(SelectionStringsArrayByLength(arr, 3));
+}
+
